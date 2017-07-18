@@ -38,6 +38,7 @@
     auto-highlight-symbol
     json-mode
     json-snatcher
+    json-mode
     ))
 
 (mapc #'(lambda (package)
@@ -62,6 +63,14 @@
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
+
+;; pretty print json files when they're opened
+(add-to-list 'auto-mode-alist
+             '("\\.json\\'" . (lambda ()
+				(json-mode)
+                                (json-reformat-region (point-min) (point-max))
+				(goto-char (point-min))
+                                (set-buffer-modified-p nil))))
 
 
 ;; Pymacs
